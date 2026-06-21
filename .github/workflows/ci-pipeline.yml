@@ -1,0 +1,46 @@
+name: Java CI with GitHub Actions
+
+# Define what events trigger this pipeline
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build and Package Java App
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Pull the source code from the repository into the runner
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # Step 2: Set up the Java environment (JDK 17)
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven # Caches Maven dependencies to speed up future builds
+
+    # Step 3: Compile, test, and package the application into a .war file
+    - name: Build with Maven
+      run: mvn clean package
+
+    # Step 4: Archive the built .war file so it can be accessed later or by Jenkins
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: insured-app-war
+        path: target/insured-assurance.war
+
+
+trigger-jenkins:
+    needs: build # Runs only if Maven passes on GitHub Actions
+    runs-on: ubuntu-latest
+    steps:
+    - name: Webhook Remote Jenkins Pipeline
+      run: |
+        curl -X POST "http://172.29.208.219:8081/job/Insured-Assurance-CD/build?token=INSURED_SECRET_TOKEN"
