@@ -36,4 +36,4 @@ jobs:
     steps:
       - name: Webhook Remote Jenkins Pipeline
         run: |
-          curl -X POST "http://172.29.208.219:8081/job/Insured-Assurance-CD/build?token=INSURED_SECRET_TOKEN" || true
+          curl -X POST "https://sip-proclaim-magnify.ngrok-free.dev/job/Insured-Assurance-CD/build?token=INSURED_SECRET_TOKEN" || true
