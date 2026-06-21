@@ -15,7 +15,7 @@
 
 <div class="container">
     <h1>Insured Assurance Portal</h1>
-    <p>Welcome to the DevOps Automated Deployment Environment.</p>
+    <p>Welcome to the DevOps Automated Deployment Environment Project.</p>
     <p><strong>Deployment Status:</strong> <span class="badge">Success (via GitHub Actions & Jenkins)</span></p>
     
     <h3>Our Core Insurance Products:</h3>
